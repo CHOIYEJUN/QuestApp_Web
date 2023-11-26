@@ -8,3 +8,8 @@
     color: blue;
     text-decoration: none;
 }
+
+.fc-toolbar-title {
+    font-size: 1.2em !important;
+    font-weight: bold;
+}

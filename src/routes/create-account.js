@@ -1,58 +1,9 @@
 import { useNavigate} from "react-router-dom";
 import  {useState} from "react";
 import {styled} from "styled-components";
-import {Center} from "@chakra-ui/react";
-
-export const Wrapper = styled.div`
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
-  width: 500px;
-  height: 600px;
-  padding: 30px 30px;
-  border-radius: 20px;
-  background-color: #000;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  opacity: 0.8;
-
-`;
-export const Title = styled.h1`
-        font-size: 30px;
-        font-weight: 700;
-        margin-bottom: 20px;
-    `
-
-export const StyleForm = styled.form`
-        
-        margin-top: 50px;
-    `
-
-export const Input = styled.input`
-      padding: 10px 20px;
-      margin: 5px 0px;
-      border-radius: 10px;
-      width: 100%;
-      &[type="submit"] {
-        cursor : pointer;
-        &:hover{
-          opacity: 0.8;
-        }
-      }
-    `
-
-export const BgVideo = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  z-index: -1;
-  opacity: 1;
-  pointer-events: none;
-  
-`;
+import {Center, useToast} from "@chakra-ui/react";
+import {Input, StyleForm, Title, Wrapper} from "../style/styles";
+import {assignUpHook} from "../hooks/assignHook";
 
 export const ChackPasswoadSpan = styled.span`
   color: red;
@@ -63,7 +14,7 @@ export default function CreateAccount() {
 
     const [isLoading, setLoading] = useState(true);
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password,setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
@@ -71,12 +22,14 @@ export default function CreateAccount() {
     const [passwordChackSpan, setPasswordChackSpan] = useState("");
     const navigation = useNavigate();
 
+    const toast = useToast();
+
     const onChange = (event) => {
       const {target : {name, value}} = event;
         if(name === "username"){
             setUsername(value);
-        }else if(name === "email"){
-            setEmail(value);
+        }else if(name === "phone"){
+            setPhone(value);
         }else if(name === "password"){
             setPassword(value);
         }else if(name === "passwordConfirm"){
@@ -92,16 +45,23 @@ export default function CreateAccount() {
     };
 
     const onSubmit = async (event) => {
-        if (username === "" || email === "" || password === "" || !passwordCheck) {
-            alert("모든 입력을 확인해주세요")
+        if (username === "" || phone === "" || password === "" || !passwordCheck) {
+            toast({
+                title: "회원가입 실패",
+                description: "모든 항목을 입력해주세요",
+                status: "error",
+                isClosable: true,
+            })
             return
         }
+        assignUpHook(username, phone, password);
         setError("");
         event.preventDefault();
         try {
-            navigation("/");
+            navigation("/login");
 
-        }catch (e : any){
+        }catch (e){
+            setError(e.message);
             alert(error);
         } finally {
             setLoading(false);
@@ -126,11 +86,11 @@ export default function CreateAccount() {
                     onChange = {onChange}
                 />
                 <Input
-                    name = "email"
-                    placeholder = "Email"
+                    name = "phone"
+                    placeholder = "phone"
                     type = "text"
                     required
-                    value = {email}
+                    value = {phone}
                     onChange = {onChange}
 
                 />

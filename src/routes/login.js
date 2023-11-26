@@ -1,9 +1,8 @@
 import {useState} from "react";
 import {styled} from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
-import {Center, HStack} from "@chakra-ui/react";
-
-
+import {Center, HStack, useToast} from "@chakra-ui/react";
+import {loginHook} from "../hooks/assignHook";
 
 const Wrapper = styled.div`
   
@@ -11,12 +10,10 @@ const Wrapper = styled.div`
       flex-direction: column;
       align-items: center;
       margin-top: 100px;
-      width: 500px;
-      height: 600px;
-      padding: 60px 60px;
+      width: 300px;
+      height: 500px;
+      padding: 30px 30px;
       border-radius: 20px;
-      background-color: #000;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
       opacity: 0.8;
   
     `;
@@ -24,18 +21,19 @@ const Wrapper = styled.div`
 const Title = styled.h1`
         font-size: 30px;
         font-weight: 700;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     `
 
 const StyleForm = styled.form`
-        
-        margin-top: 50px;
+  
+        margin-top: 20px;
     `
 
 const Input = styled.input`
       padding: 10px 20px;
       margin: 5px 0px;
       border-radius: 10px;
+      border: 1px solid #dbdbdb;
       width: 100%;
       &[type="submit"] {
         cursor : pointer;
@@ -48,6 +46,7 @@ const Input = styled.input`
     `
 const Switcher = styled.div`
       margin-top: 20px;
+      font-size: 0.9em;
         a {
             color: #0095f6;
             margin-left: 5px;
@@ -56,48 +55,46 @@ const Switcher = styled.div`
         }
 `
 
-const BgVideo = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  z-index: -1;
-  opacity: 1;
-  pointer-events: none;
-  
-`;
+
 
 export default function Login() {
     const [isLoading, setLoading] = useState(true);
-    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password,setPassword] = useState("");
     const [error, setError] = useState("");
     const navigation = useNavigate();
+    const toast = useToast();
 
 
     const onChange = (event) => {
         const {target : {name, value}} = event;
-        if(name === "email"){
-            setEmail(value);
+        if(name === "phone"){
+            setPhone(value);
         }else if(name === "password"){
             setPassword(value);
         }
     };
 
     const onSubmit = async (event) => {
-        if (email === "" || password === "" ) {
-            alert("모든 입력을 확인해주세요")
+        if (phone === "" || password === "" ) {
+            toast({
+                title: "로그인 실패",
+                description: "모든 항목을 입력해주세요",
+                status: "error",
+                isClosable: true,
+            })
             return
         }
         setError("");
         event.preventDefault();
         try {
             setLoading(true);
-           /* await signInWithEmailAndPassword(auth ,email, password);*/
-            navigation("/");
+            // loginHook 함수가 다 끝난 뒤 loginValue 에 값을 넣어준다.
 
-        }catch (e : any){
+            const loginValue = await loginHook(phone, password);
+            chackLogin(loginValue);
+            setLoading(false);
+        }catch (e){
             setError(e.message);
             alert(error);
         } finally {
@@ -105,6 +102,21 @@ export default function Login() {
         }
 
     };
+
+    const chackLogin = (loginValue) => {
+        if(loginValue === "fail"){
+            toast({
+                title: "로그인 실패",
+                description: "아이디와 비밀번호를 확인해주세요",
+                status: "error",
+                isClosable: true,
+            })
+            return
+        }
+        if(loginValue === "success") {
+            navigation("/");
+        }
+    }
     return (
         <>
         <Center>
@@ -113,18 +125,16 @@ export default function Login() {
             <Title>로그인</Title>
             <StyleForm onSubmit={onSubmit} >
                 <Input
-                    name = "email"
-                    placeholder = "Email"
+                    name = "phone"
+                    placeholder = "휴대전화번호 - 없이 입력"
                     type = "text"
-                    required
-                    value = {email}
+                    value = {phone}
                     onChange = {onChange}
                 />
                 <Input
                     name = "password"
-                    placeholder = "Password"
+                    placeholder = "비밀번호"
                     type = "password"
-                    required
                     value = {password}
                     onChange = {onChange}
                 />
@@ -137,7 +147,7 @@ export default function Login() {
 
             <Switcher>
                 계정이 없으신가요?{" "}
-                <Link to="/create-account">회원가입하기 &rarr;</Link>
+                <Link to="/create-account">회원가입 >> </Link>
             </Switcher>
         </Wrapper>
                 </HStack>

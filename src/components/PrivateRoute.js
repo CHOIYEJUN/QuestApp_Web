@@ -1,14 +1,7 @@
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 
-export default function LoginStateChack () {
+export default function PrivateRoute ({ element }) {
 
-    const loginState = localStorage.getItem("user_phone");
-    const navigation = useNavigate();
-
-    if(!loginState){
-        navigation("/login");
-    }
-    return(
-        <></>
-    )
+    const isAuthenticated = !!localStorage.getItem("user_phone");
+    return isAuthenticated ? element : <Navigate to="/login" />;
 }
