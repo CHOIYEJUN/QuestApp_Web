@@ -38,7 +38,6 @@ export default function TodayDone() {
                     <Text
                         fontSize={'2xl'}
                         fontWeght={'bold'}
-
                     >
                         "참 잘했어요!"
                     </Text>

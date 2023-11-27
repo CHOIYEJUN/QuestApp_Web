@@ -80,7 +80,7 @@ export default function Notyet() {
                     <Button
                         w={'100%'}
                         margin={'10px 0 10px 0'}
-                        name={"yes"}
+                        name={"outher"}
                         onClick={onClick}
                     >
                         오늘이 아닌 다른 날 것을 했어요
