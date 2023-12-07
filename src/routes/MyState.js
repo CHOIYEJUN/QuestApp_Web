@@ -7,7 +7,7 @@ import EventButton from "../components/MyState/EventButton";
 
 export default function MyState () {
     const userName = localStorage.getItem("user_name");
-    const startYMD = "2021-10-01";
+    const startYMD = "2021-11-20";
 
     return(
         <>
@@ -41,32 +41,28 @@ export default function MyState () {
                         fontSize={'l'}
                         fontWeght={'bold'}
                     >
-                       현재 퀘스트를 진행한지 D+ 28일 되었어요!
+                       현재 퀘스트를 진행한지 D+ 10일 되었어요!
                     </Text>
                     <Text
                         fontSize={'l'}
                         fontWeght={'bold'}
                     >
-                       총 00 개의 "참 잘했어요"
+                       총 01 개의 "참 잘했어요"
                     </Text>
                     <Text
                         fontSize={'l'}
                         fontWeght={'bold'}
                     >
-                        총 00 개의 "잘했어요" 를 획득했습니다.
+                        총 01 개의 "잘했어요" 를 획득했습니다.
                     </Text>
 
-                    <Text
-                        fontSize={'l'}
-                        fontWeght={'bold'}
-                    >
-                        이번 달 캘린더 날씨 : 맑음
-                    </Text>
+
                 </center>
 
                 <HStack
                     display={'flex'}
                     justifyContent={'space-between'}
+                    m={'20px 0 0 0'}
                     w={'80%'}
                 >
                     <MyPageButton/>

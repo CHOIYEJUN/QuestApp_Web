@@ -45,7 +45,6 @@ export default function () {
 
     return (
         <>
-            <Header></Header>
             <Center>
                 <Wrapper>
                     <Text
@@ -59,6 +58,23 @@ export default function () {
                         name={"no"}
                     >
                         오늘의 퀘스트 완료하셨나요?
+                    </Text>
+
+
+                    <Text
+                        fontSize={'m'}
+                        margin={'10px 0 0 0'}
+
+                    >
+                        오늘의 퀘스트는
+                    </Text>
+
+                    <Text
+                        fontSize={'l'}
+                        fontWeight={'bold'}
+
+                    >
+                        "호이스팅 공부"
                     </Text>
 
                     <Button

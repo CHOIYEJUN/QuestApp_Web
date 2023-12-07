@@ -1,10 +1,10 @@
 import { useNavigate} from "react-router-dom";
 import  {useState} from "react";
 import {styled} from "styled-components";
-import {Center, useToast} from "@chakra-ui/react";
+import {Button, Center, InputGroup, InputRightElement, useToast} from "@chakra-ui/react";
 import {Input, StyleForm, Title, Wrapper} from "../style/styles";
-import {assignUpHook} from "../hooks/assignHook";
-
+import {assignUpHook, checkPhone} from "../hooks/assignHook";
+import React from "react";
 export const ChackPasswoadSpan = styled.span`
   color: red;
 `;
@@ -20,12 +20,40 @@ export default function CreateAccount() {
     const [error, setError] = useState("");
     const [passwordCheck, setPasswordCheck] = useState(false);
     const [passwordChackSpan, setPasswordChackSpan] = useState("");
+    const [belong, setBelong] = useState("");
     const navigation = useNavigate();
+    const [isPhoneCheck,SetPhoneCheck ] = React.useState(false)
 
+    const handleClick = async () => {
+
+        if(phone === ""){
+            toast({
+                title: "전화번호를 입력해주세요",
+                status: "error",
+                isClosable: true,
+            })
+            return;
+        }
+
+        const checkPhoneState = await checkPhone(phone);
+        console.log(checkPhoneState);
+
+        if(checkPhoneState){
+            SetPhoneCheck(true);
+        }else if(!checkPhoneState){
+            SetPhoneCheck(false);
+            toast({
+                title: "이미 가입된 전화번호 입니다.",
+                status: "error",
+                isClosable: true,
+            })
+        }
+
+    }
     const toast = useToast();
 
     const onChange = (event) => {
-      const {target : {name, value}} = event;
+        const {target : {name, value}} = event;
         if(name === "username"){
             setUsername(value);
         }else if(name === "phone"){
@@ -41,6 +69,8 @@ export default function CreateAccount() {
                 setPasswordCheck(false);
             }
             setPasswordConfirm(value);
+        }else if(name === "belong"){
+            setBelong(value);
         }
     };
 
@@ -49,6 +79,16 @@ export default function CreateAccount() {
             toast({
                 title: "회원가입 실패",
                 description: "모든 항목을 입력해주세요",
+                status: "error",
+                isClosable: true,
+            })
+            return
+        }
+
+        if(!isPhoneCheck){
+            toast({
+                title: "회원가입 실패",
+                description: "전화번호 중복체크를 해주세요",
                 status: "error",
                 isClosable: true,
             })
@@ -74,53 +114,76 @@ export default function CreateAccount() {
         <>
 
             <Center>
-        <Wrapper>
-            <Title>회원가입</Title>
-            <StyleForm onSubmit={onSubmit}>
-                <Input
-                    name = "username"
-                    placeholder = "Username"
-                    type = "text"
-                    required
-                    value = {username}
-                    onChange = {onChange}
-                />
-                <Input
-                    name = "phone"
-                    placeholder = "phone"
-                    type = "text"
-                    required
-                    value = {phone}
-                    onChange = {onChange}
+                <Wrapper>
+                    <Title>회원가입</Title>
+                    <StyleForm onSubmit={onSubmit}>
+                        <Input
+                            name = "username"
+                            placeholder = "닉네임"
+                            type = "text"
+                            required
+                            value = {username}
+                            onChange = {onChange}
 
-                />
-                <Input
-                    name = "password"
-                    placeholder = "Password"
-                    type = "password"
-                    required
-                    value = {password}
-                    onChange = {onChange}
-                />
-                <Input
-                    name = "passwordConfirm"
-                    placeholder = "Password Confirm"
-                    type = "password"
-                    required
-                    value = {passwordConfirm}
-                    onChange = {onChange}
-                />
+                        />
+                        <InputGroup size='md'>
+                            <Input
+                                name = "phone"
+                                placeholder = "휴대전화번호"
+                                type = "text"
+                                required
+                                value = {phone}
+                                onChange = {onChange}
 
-                <Input
-                    type = "submit"
-                    value ={!isLoading ? "Loding..." : "Create Account"}
+                            />
+                            <InputRightElement width=''>
+                                <Button
+                                    h='30px'
+                                    m={'15px 0 0 0'}
+                                    size='sm'
+                                    onClick={handleClick}
+                                    colorScheme={isPhoneCheck ? 'green' : 'gray'}
 
-                />
+                                >
+                                    {isPhoneCheck ? '체크완료' : '중복체크'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                        <Input
+                            name = "password"
+                            placeholder = "비밀번호"
+                            type = "password"
+                            required
+                            value = {password}
+                            onChange = {onChange}
+                        />
+                        <Input
+                            name = "passwordConfirm"
+                            placeholder = "비밀번호 확인"
+                            type = "password"
+                            required
+                            value = {passwordConfirm}
+                            onChange = {onChange}
+                        />
+                        <Input
+                            name = "belong"
+                            placeholder = "비밀번호 확인"
+                            type = "password"
+                            required
+                            value = {belong}
+                            onChange = {onChange}
+                        />
 
-            </StyleForm>
-            <ChackPasswoadSpan>{passwordChackSpan}</ChackPasswoadSpan>
+                        <Input
+                            type = "submit"
+                            value ={!isLoading ? "Loding..." : "Create Account"}
 
-        </Wrapper>
+                        />
+
+                    </StyleForm>
+                    <ChackPasswoadSpan>{passwordChackSpan}</ChackPasswoadSpan>
+
+                </Wrapper>
             </Center>
         </>
     )

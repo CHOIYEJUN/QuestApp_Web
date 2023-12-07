@@ -5,3 +5,4 @@ export default function PrivateRoute ({ element }) {
     const isAuthenticated = !!localStorage.getItem("user_phone");
     return isAuthenticated ? element : <Navigate to="/login" />;
 }
+

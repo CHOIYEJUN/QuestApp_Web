@@ -21,6 +21,8 @@ export default function TodayDone() {
     const onClick = (e) => {
         if(e.target.name === "myState"){
             navigation("/myState");
+        }else if(e.target.name === "outher") {
+            navigation("/checkOtherDay");
         }
     }
 

@@ -1,12 +1,16 @@
 import axios from 'axios';
 
-const url = 'http://localhost:9095/Diary/';
+const url = 'http://13.209.21.173:9095/Diary/';
+const allowOrigin = 'https://dailyquest-a912d.web.app/';
 const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const date = today.getDate();
+//만약 date 가 한자리 라면 앞에 0 붙혀줘야 함
+//ex) 2021-04-1 -> 2021-04-01 로 바꿔줘야 함
+const fixedDate = date < 10 ? "0" + date : date;
 const week = ['일', '월', '화', '수', '목', '금', '토'];
-const todayString = year + "-" + month + "-" + date;
+const todayString = year + "-" + month + "-" + fixedDate;
 const phone = window.localStorage.getItem("user_phone");
 
 
@@ -19,7 +23,7 @@ export const getStemp = async () => {
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                "Access-Control-Allow-Origin": allowOrigin,
                 'Access-Control-Allow-Credentials': "true",
             }
         });
@@ -44,7 +48,7 @@ export const insertStemp = async () => {
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                "Access-Control-Allow-Origin": allowOrigin,
                 'Access-Control-Allow-Credentials': "true",
             }
         });
@@ -72,7 +76,7 @@ export const insertCheckOtherDay = async (item) => {
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                "Access-Control-Allow-Origin": allowOrigin,
                 'Access-Control-Allow-Credentials': "true",
             }
         });
@@ -95,7 +99,7 @@ export const deleteStemp = async (item) => {
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                "Access-Control-Allow-Origin": allowOrigin,
                 'Access-Control-Allow-Credentials': "true",
             }
         });

@@ -17,6 +17,7 @@
     "async": "^3.2.5",
     "axios": "^1.6.2",
     "cors-anywhere": "^0.4.4",
+    "firebase": "^10.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -33,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "react-scripts build",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": [

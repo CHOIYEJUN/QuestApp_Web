@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const url = 'http://localhost:9095/Diary/';
+const url = 'http://13.209.21.173:9095/Diary/';
+const allowOrigin = 'https://dailyquest-a912d.web.app/';
 export const loginHook = async (phone, password) => {
     try {
         const response = await axios.get(url + 'getLoginData', {
@@ -11,7 +12,7 @@ export const loginHook = async (phone, password) => {
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                "Access-Control-Allow-Origin": allowOrigin,
                 'Access-Control-Allow-Credentials': "true",
             }
         });
@@ -40,7 +41,7 @@ export const assignUpHook = async (username, phone, password) => {
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                "Access-Control-Allow-Origin": allowOrigin,
                 'Access-Control-Allow-Credentials': "true",
             }
         });
@@ -50,3 +51,26 @@ export const assignUpHook = async (username, phone, password) => {
         console.log(error);
     }
 };
+
+
+export const checkPhone = async (phone) => {
+    try {
+        const response = await axios.get(url + 'checkPhoneNumber', {
+            params: {
+                phone: phone,
+            },
+            headers: {
+                "Content-Type": `application/json;charset=UTF-8`,
+                "Accept": "application/json",
+                "Access-Control-Allow-Origin": allowOrigin,
+                'Access-Control-Allow-Credentials': "true",
+            }
+        });
+        console.log(response.data.SUCCESS);
+        return response.data.SUCCESS;
+    }
+    catch (error) {
+        console.log(error);
+        return false;
+    }
+}
