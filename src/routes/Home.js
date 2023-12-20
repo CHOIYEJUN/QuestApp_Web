@@ -3,6 +3,7 @@ import {Title, Wrapper} from "../style/styles";
 import {useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import {insertStemp} from "../hooks/stempHook";
+import {useEffect} from "react";
 
 
 export default function () {
@@ -34,13 +35,14 @@ export default function () {
         }else if(insertStempState === "already") {
             tost({
                 title: "오류",
-                description: "이미 출석체크를 하셨습니다.",
+                description: "이미 스템프를 받았습니다",
                 status: "error",
                 isClosable: true,
             })
             navigation("/myState");
         }
     }
+
 
 
     return (
@@ -62,19 +64,10 @@ export default function () {
 
 
                     <Text
-                        fontSize={'m'}
-                        margin={'10px 0 0 0'}
-
-                    >
-                        오늘의 퀘스트는
-                    </Text>
-
-                    <Text
                         fontSize={'l'}
                         fontWeight={'bold'}
 
                     >
-                        "호이스팅 공부"
                     </Text>
 
                     <Button
@@ -99,7 +92,7 @@ export default function () {
                         name={"outher"}
                         onClick={onClick}
                     >
-                        오늘이 아닌 다른 날 것 했어요 😂
+                        오늘이 아닌 다른 날 것 했어요 😁
                     </Button>
 
                 </Wrapper>

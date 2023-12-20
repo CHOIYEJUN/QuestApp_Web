@@ -5,12 +5,8 @@ export default function StateButton() {
     const navigation = useNavigate();
     const toast = useToast();
     const onclick = (e) => {
-        toast({
-            title: "서비스 준비중입니다.",
-            status: "warning",
-            duration: 2000,
-            isClosable: true,
-        })
+
+        navigation("/statistics");
 
     }
 

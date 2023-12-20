@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "AppleSD_Bold";
+    src: url("./AppleSDGothicNeoB.ttf");
+}
+@font-face {
+    font-family: "AppleSD_M";
+    src: url("./AppleSDGothicNeoM.ttf");
+}
+
+ h1, h2, h3, h4, h5, h6, span {
+    font-family: "AppleSD_Bold";
+}
+
+p, div, a, button, input, textarea, select, option {
+    font-family: "AppleSD_M";
+}
+
+.fc-daygrid-day-events {
+    min-height: 0px !important;
+}
+

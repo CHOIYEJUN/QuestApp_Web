@@ -6,19 +6,29 @@ import {
     ModalContent, ModalFooter,
     ModalHeader,
     ModalOverlay,
-    useDisclosure
+    useDisclosure, useToast
 } from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
+import {auth} from "../../fireBase";
 
 export default function MyPageButton() {
     const navigation = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const toast = useToast();
     const onclick = (e) => {
-        onOpen();
+       onOpen();
+        toast({
+            title: "서비스 준비중입니다.",
+            status: "warning",
+            duration: 2000,
+            isClosable: true,
+        })
+
     }
-    const onLogout = () => {
-        localStorage.clear();
-        navigation("/login");
+    const onLogout = async () => {
+            localStorage.clear();
+            await auth.signOut();
+            navigation("/login");
     }
 
     return(

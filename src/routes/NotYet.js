@@ -83,7 +83,7 @@ export default function Notyet() {
                         name={"outher"}
                         onClick={onClick}
                     >
-                        오늘이 아닌 다른 날 것을 했어요
+                        오늘이 아닌 다른 날 것을 했어요 😁
                     </Button>
                 </Wrapper>
             </Center>

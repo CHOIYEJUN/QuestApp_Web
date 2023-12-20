@@ -28,13 +28,8 @@ export default function CheckOtherDay() {
 
         results.forEach((insertCheckOtherDayState, index) => {
             if (insertCheckOtherDayState === "success") {
-                toster({
-                    title: "완료",
-                    description: "출석체크가 완료되었습니다.",
-                    status: "success",
-                    isClosable: true,
-                })
-                navigation("/myState");
+
+                navigation("/otherDayDone");
             } else if(insertCheckOtherDayState === "fail") {
                 toster({
                     title: "오류",

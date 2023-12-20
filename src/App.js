@@ -7,6 +7,8 @@ import Notyet from "./routes/NotYet";
 import MyState from "./routes/MyState";
 import PrivateRoute from "./components/PrivateRoute";
 import CheckOtherDay from "./routes/CheckOtherDay";
+import OtherDayDone from "./routes/OtherDayDone";
+import Statistics from "./routes/Statistics";
 
 
 function App() {
@@ -31,6 +33,14 @@ function App() {
         {
             path: "/checkOtherDay",
             element: <PrivateRoute element={<CheckOtherDay />} />,
+        },
+        {
+            path: "/otherDayDone",
+            element: <PrivateRoute element={<OtherDayDone />} />,
+        },
+        {
+            path: "/statistics",
+            element: <PrivateRoute element={<Statistics />} />,
         },
         {
             path: "/create-account",

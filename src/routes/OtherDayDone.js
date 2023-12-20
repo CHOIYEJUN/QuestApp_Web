@@ -16,7 +16,7 @@ const Wrappers = styled.div`
     background: url(${props => props.bg});
 `;
 
-export default function TodayDone() {
+export default function OtherDayDone() {
     const navigation = useNavigate();
     const onClick = (e) => {
         if(e.target.name === "myState"){
@@ -33,15 +33,15 @@ export default function TodayDone() {
                     bg={'src=https://firebasestorage.googleapis.com/v0/b/mintonmap-7f2e8.appspot.com/o/TodayDoneImg%2FgoodJobEx.gif?alt=media&token=6379a069-5844-4d4c-8cac-7020a0397a7a'}
                 >
                     <Img
-                        src={"https://firebasestorage.googleapis.com/v0/b/mintonmap-7f2e8.appspot.com/o/TodayDoneImg%2Fgoodjob.png?alt=media&token=8a9e884d-aacf-4f32-9301-80049e29c393"}
+                        src={"https://firebasestorage.googleapis.com/v0/b/dailyquest-a912d.appspot.com/o/%EC%9E%98%ED%96%88%EC%96%B4%EC%9A%94.png?alt=media&token=0f70e110-b012-4bdb-b21a-483a0596000d"}
                     >
 
                     </Img>
                     <Text
-                        fontSize={'2xl'}
+                        fontSize={'xl'}
                         fontWeght={'bold'}
                     >
-                        "참 잘했어요!"
+                        선택하신 날에 "잘했어요!"
                     </Text>
                     <Text
                         fontSize={'l'}

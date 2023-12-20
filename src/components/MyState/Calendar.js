@@ -10,13 +10,15 @@ import {useEffect, useState} from "react";
 import {deleteStemp, getStemp} from "../../hooks/stempHook";
 import React from "react";
 
-export default function Calendar() {
+export default function Calendar(props) {
     const [events, setEvents] = useState([]);
     const userPhone = localStorage.getItem("user_phone");
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef()
     const [deleteDate, setDeleteDate] = useState(null);
     const toast = useToast();
+    let excellentNum = 0;
+    let goodNum = 0;
 
     useEffect(() => {
         getEvents();
@@ -24,15 +26,23 @@ export default function Calendar() {
 
     const getEvents = async () => {
         const stemp = await getStemp(userPhone);
-        const events = stemp.RESULT.map((item) => {
+        const events = stemp.map((item) => {
+            if(item.quest_status === "excellent") {
+                excellentNum++;
+            }else if(item.quest_status === "good") {
+                goodNum++;
+            }
+
             return {
                 start: item.quest_date,
                 display: "background",
-                phone: item.phone,
+                name: item.user_name,
                 backgroundColor: item.quest_status === "excellent" ? "#5daf42" : "#e7b840"
             }
+
         })
         setEvents(events);
+        props.propFunction(excellentNum, goodNum);
     }
 
 
@@ -60,6 +70,7 @@ export default function Calendar() {
             onClose();
             getEvents();
 
+
         }else if(deleteState === "fail") {
             toast({
                 title: "오류",
@@ -79,11 +90,12 @@ export default function Calendar() {
 
             >
                 <FullCalendar
+                    aspectRatio={1.5}
                     plugins={[ dayGridPlugin, interactionPlugin ]}
                     initialView="dayGridMonth"
                     weekends={true}
                     events={events}
-                    height={'430px'}
+                    height={'370px'}
                     firstDay={0}
                     titleFormat={titleFormat}
                     headerToolbar={{

@@ -19,6 +19,8 @@ export const loginHook = async (phone, password) => {
 
         window.localStorage.setItem("user_phone", response.data.RESULT[0].phone);
         window.localStorage.setItem("user_name", response.data.RESULT[0].user_name);
+        window.localStorage.setItem("user_belong", response.data.RESULT[0].belong);
+        window.localStorage.setItem("user_start_date", response.data.RESULT[0].start_date);
         console.log(response.data);
 
         return "success";
@@ -29,14 +31,14 @@ export const loginHook = async (phone, password) => {
     }
 };
 
-export const assignUpHook = async (username, phone, password) => {
+export const assignUpHook = async (username, phone, password, belong) => {
     try {
         const response = await axios.get(url + 'insartAssignData', {
             params: {
                 user_name: username,
                 phone: phone,
                 password: password,
-                belong: '-',
+                belong: belong,
             },
             headers: {
                 "Content-Type": `application/json;charset=UTF-8`,

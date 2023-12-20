@@ -2,7 +2,9 @@ import {useState} from "react";
 import {styled} from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
 import {Center, HStack, useToast} from "@chakra-ui/react";
-import {loginHook} from "../hooks/assignHook";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth, DBservice} from "../fireBase.js";
+import { collection, doc, getDoc } from "firebase/firestore";
 
 const Wrapper = styled.div`
   
@@ -59,7 +61,7 @@ const Switcher = styled.div`
 
 export default function Login() {
     const [isLoading, setLoading] = useState(true);
-    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [error, setError] = useState("");
     const navigation = useNavigate();
@@ -68,15 +70,15 @@ export default function Login() {
 
     const onChange = (event) => {
         const {target : {name, value}} = event;
-        if(name === "phone"){
-            setPhone(value);
+        if(name === "email"){
+            setEmail(value);
         }else if(name === "password"){
             setPassword(value);
         }
     };
 
     const onSubmit = async (event) => {
-        if (phone === "" || password === "" ) {
+        if (email === "" || password === "" ) {
             toast({
                 title: "로그인 실패",
                 description: "모든 항목을 입력해주세요",
@@ -89,34 +91,48 @@ export default function Login() {
         event.preventDefault();
         try {
             setLoading(true);
+            localStorage.clear();
             // loginHook 함수가 다 끝난 뒤 loginValue 에 값을 넣어준다.
+            const loginValue = await signInWithEmailAndPassword(auth ,email, password);
+            const userDoc = doc(DBservice, "users" ,loginValue.user.uid );
+            getDoc(userDoc).then((docSnap) => {
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                    localStorage.setItem("belong", docSnap.data().belong);
+                    localStorage.setItem("startDay", docSnap.data().startDay);
+                } else {
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
 
-            const loginValue = await loginHook(phone, password);
-            chackLogin(loginValue);
+            seveUserInfoLocalStorage(loginValue.user);
+            navigation("/");
             setLoading(false);
         }catch (e){
-            setError(e.message);
-            alert(error);
-        } finally {
-            setLoading(false);
-        }
 
-    };
-
-    const chackLogin = (loginValue) => {
-        if(loginValue === "fail"){
             toast({
                 title: "로그인 실패",
                 description: "아이디와 비밀번호를 확인해주세요",
                 status: "error",
                 isClosable: true,
             })
-            return
+
+        } finally {
+            setLoading(false);
         }
-        if(loginValue === "success") {
-            navigation("/");
-        }
+
+    };
+
+    const seveUserInfoLocalStorage = (user) => {
+        localStorage.setItem("user_name", user.displayName );
+        localStorage.setItem("user_email", user.email );
+        localStorage.setItem("user_uid", user.uid );
+
+
     }
+
     return (
         <>
         <Center>
@@ -125,10 +141,10 @@ export default function Login() {
             <Title>로그인</Title>
             <StyleForm onSubmit={onSubmit} >
                 <Input
-                    name = "phone"
-                    placeholder = "휴대전화번호 - 없이 입력"
+                    name = "email"
+                    placeholder = "이메일 입력"
                     type = "text"
-                    value = {phone}
+                    value = {email}
                     onChange = {onChange}
                 />
                 <Input

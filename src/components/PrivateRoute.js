@@ -1,8 +1,24 @@
 import {Navigate, useNavigate} from "react-router-dom";
+import {auth} from "../fireBase.js";
+import {useEffect} from "react";
 
 export default function PrivateRoute ({ element }) {
 
-    const isAuthenticated = !!localStorage.getItem("user_phone");
-    return isAuthenticated ? element : <Navigate to="/login" />;
+    console.log(element)
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user === null) {
+                // 사용자가 로그인하지 않은 경우 리다이렉션 수행
+                return <Navigate to="/login" />;
+            }
+        });
+        return () => unsubscribe(); // cleanup 함수를 이용하여 구독 취소
+    }, []);
+
+    return element;
+
+
+
 }
 

@@ -19,7 +19,7 @@ const Calendar = forwardRef((props, ref) => {
 
     const getEvents = async () => {
         const stemp = await getStemp(userPhone);
-        const events = stemp.RESULT.map((item) => {
+        const events = stemp.map((item) => {
             return {
                 start: item.quest_date,
                 display: "background",
@@ -78,6 +78,7 @@ const Calendar = forwardRef((props, ref) => {
     return (
         <Box w={"330px"}>
             <FullCalendar
+                aspectRatio={1.5}
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 weekends={true}
