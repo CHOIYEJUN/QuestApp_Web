@@ -1,13 +1,14 @@
 import {Button, Text, useToast, VStack} from "@chakra-ui/react";
 import {Calendar} from "../components/Admin/calendar";
-import React, {forwardRef, useRef} from "react";
+import React, {forwardRef, useRef, useState} from "react";
 import {insertCheckAdminDay, insertCheckOtherDay} from "../hooks/stempHook";
 
 export default function Admin(){
 
     const childComponentRef = useRef();
     const toster = useToast();
-    const onClick = async (e) => {
+    const [refresh, setRefresh] = useState(false);
+    const onClick =  (e) => {
         const childValue = childComponentRef.current.getChildValue();
         const buttonName = e.target.name;
         if(childValue.length === 0) {
@@ -19,7 +20,12 @@ export default function Admin(){
             })
             return;
         }
+        postAdminStemp(childValue, buttonName);
 
+
+    }
+
+    const postAdminStemp = async (childValue, buttonName) => {
         try{
             const promises = childValue.map(
                 (item) => {
@@ -44,7 +50,6 @@ export default function Admin(){
                 }
             });
 
-            window.location.reload();
             toster({
                 title: "성공",
                 description: "완료되었습니다.",
@@ -52,11 +57,12 @@ export default function Admin(){
                 isClosable: true,
             })
 
+            childComponentRef.current.refreshCalendar();
+
+
         }catch (e) {
             console.log(e);
         }
-
-
 
     }
 

@@ -29,7 +29,7 @@ export const Calendar = forwardRef((props:any, ref:any) => {
     const [deleteDate, setDeleteDate] = useState<DeleteEvent>();
     const [users, setUsers] = useState<UserData[]>([]);
     const [newEvents, setNewEvents] = useState<Event[]>([]);
-    const [user_ID, setUser_ID] = useState("");
+    const [user_ID, setUser_ID] = useState("0");
     const [user_name, setUser_name] = useState("");
     const toster = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -80,6 +80,15 @@ export const Calendar = forwardRef((props:any, ref:any) => {
     };
 
     const dateClick = (info : any) => {
+        if(user_ID === "0") {
+            toster({
+                title: "유저를 먼저 선택해주세요",
+                status: "error",
+                duration: 1000,
+                isClosable: true,
+            });
+            return false;
+        }
         const clickedDate = info.dateStr;
         const isSelected = events.find((event) => event.start === clickedDate);
 
@@ -145,8 +154,13 @@ export const Calendar = forwardRef((props:any, ref:any) => {
     useImperativeHandle(ref, () => ({
         getChildValue: () => {
             return newEvents;
-        }
+        },
+
+        refreshCalendar: () => {
+            getEvents(user_ID);
+        },
     }));
+
 
     return(
 
