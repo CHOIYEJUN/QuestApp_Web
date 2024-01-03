@@ -95,6 +95,7 @@ export default function Login() {
             // loginHook 함수가 다 끝난 뒤 loginValue 에 값을 넣어준다.
             const loginValue = await signInWithEmailAndPassword(auth ,email, password);
             const userDoc = doc(DBservice, "users" ,loginValue.user.uid );
+
             getDoc(userDoc).then((docSnap) => {
                 if (docSnap.exists()) {
                     console.log("Document data:", docSnap.data());
@@ -108,7 +109,7 @@ export default function Login() {
             });
 
             seveUserInfoLocalStorage(loginValue.user);
-            navigation("/");
+            window.location.replace("/");
             setLoading(false);
         }catch (e){
 
@@ -129,8 +130,6 @@ export default function Login() {
         localStorage.setItem("user_name", user.displayName );
         localStorage.setItem("user_email", user.email );
         localStorage.setItem("user_uid", user.uid );
-
-
     }
 
     return (
@@ -163,7 +162,7 @@ export default function Login() {
 
             <Switcher>
                 계정이 없으신가요?{" "}
-                <Link to="/create-account">회원가입 >> </Link>
+                <Link to="/create-account">회원가입</Link>
             </Switcher>
         </Wrapper>
                 </HStack>

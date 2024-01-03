@@ -46,7 +46,7 @@ export default function OtherDayDone() {
                     <Text
                         fontSize={'l'}
                     >
-                        스템프을 획득하셨습니다!
+                        스탬프를 획득하셨습니다!
                     </Text>
 
                     <Button

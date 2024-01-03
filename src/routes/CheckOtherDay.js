@@ -12,7 +12,6 @@ export default function CheckOtherDay() {
     const navigation = useNavigate();
     const onClick = async  (e) => {
         const childValue = childComponentRef.current.getChildValue();
-        let insertCheckOtherDayState = "";
         if(childValue.length === 0) {
             toster({
                 title: "오류",

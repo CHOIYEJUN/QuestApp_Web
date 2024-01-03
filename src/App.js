@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import CheckOtherDay from "./routes/CheckOtherDay";
 import OtherDayDone from "./routes/OtherDayDone";
 import Statistics from "./routes/Statistics";
+import Admin from "./routes/Admin";
 
 
 function App() {
@@ -50,6 +51,11 @@ function App() {
             path: "/login",
             element: <Login />,
         },
+
+        {
+            path:"/admin",
+            element:<PrivateRoute element={<Admin />} />
+        }
 
     ]);
 

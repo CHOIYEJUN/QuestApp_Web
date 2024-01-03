@@ -12,7 +12,7 @@ import React from "react";
 
 export default function Calendar(props) {
     const [events, setEvents] = useState([]);
-    const userPhone = localStorage.getItem("user_phone");
+    const userID = localStorage.getItem("user_uid");
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef()
     const [deleteDate, setDeleteDate] = useState(null);
@@ -25,7 +25,7 @@ export default function Calendar(props) {
     }, []);
 
     const getEvents = async () => {
-        const stemp = await getStemp(userPhone);
+        const stemp = await getStemp(userID);
         const events = stemp.map((item) => {
             if(item.quest_status === "excellent") {
                 excellentNum++;
@@ -54,7 +54,7 @@ export default function Calendar(props) {
     }
     const eventClick = (info) => {
         onOpen();
-        setDeleteDate(info.dateStr);
+        setDeleteDate(info.event.startStr);
     }
     const onDeleteBtn = async () => {
         onClose();
@@ -105,7 +105,7 @@ export default function Calendar(props) {
                     }
                     }
                     fixedWeekCount={false}
-                    dateClick={eventClick}
+                    eventClick={eventClick}
                 />
             </Box>
 
@@ -117,11 +117,11 @@ export default function Calendar(props) {
                 <AlertDialogOverlay>
                     <AlertDialogContent>
                         <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                            스템프 삭제하기
+                            스탬프 삭제하기
                         </AlertDialogHeader>
 
                         <AlertDialogBody>
-                            {deleteDate} 에 찍은 스템프를 삭제하시겠습니까?
+                            {deleteDate} 에 찍은 스탬프를 삭제하시겠습니까?
                         </AlertDialogBody>
 
                         <AlertDialogFooter>

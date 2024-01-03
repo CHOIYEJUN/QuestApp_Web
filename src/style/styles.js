@@ -14,6 +14,18 @@ export const Wrapper = styled.div`
   
     `;
 
+export const AccountWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 330px;
+  height: 500px;
+  padding: 30px 30px;
+  border-radius: 20px;
+  opacity: 0.8;
+`;
+
 export const Title = styled.h1`
         font-size: 30px;
         font-weight: 700;

@@ -1,12 +1,14 @@
 import {Box, Center, Text} from "@chakra-ui/react";
 import { useNavigate} from "react-router-dom";
+import {auth} from "../fireBase";
 
 export default function Header() {
     const userName = localStorage.getItem("user_name");
     const navigation = useNavigate();
 
-    const onLogout = () => {
+    const onLogout = async () => {
         localStorage.clear();
+        await auth.signOut();
         navigation("/login");
     }
 

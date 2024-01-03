@@ -10,9 +10,11 @@ const month = today.getMonth() + 1;
 const date = today.getDate();
 //만약 date 가 한자리 라면 앞에 0 붙혀줘야 함
 //ex) 2021-04-1 -> 2021-04-01 로 바꿔줘야 함
+const fixedMonth = month < 10 ? "0" + month : month;
 const fixedDate = date < 10 ? "0" + date : date;
 const week = ['일', '월', '화', '수', '목', '금', '토'];
-const todayString = year + "-" + month + "-" + fixedDate;
+const todayString = year + "-" + fixedMonth + "-" + fixedDate;
+const userID = localStorage.getItem("user_uid");
 
 export const getAllStemp = async () => {
     try {
@@ -39,7 +41,7 @@ export const getStemp = async () => {
     try {
         const getAllSteampQuery = query(
             collection(DBservice, "stemp"),
-            where("uid", "==", auth.currentUser.uid)
+            where("uid", "==", userID)
         );
         const querySnapshot = await getDocs(getAllSteampQuery);
 
@@ -63,7 +65,7 @@ export const insertStemp = async () => {
 
         const steampQuery = query(
             collection(DBservice, "stemp"),
-            where("uid", "==", auth.currentUser.uid),
+            where("uid", "==", userID),
             where("quest_date", "==", todayString)
         );
 
@@ -110,12 +112,32 @@ export const insertCheckOtherDay = async (item) => {
     }
 }
 
+export const insertCheckAdminDay = async (item) => {
+    try {
+
+        // 새 문서 추가
+        await addDoc(collection(DBservice, "stemp"), {
+            uid: item.uid,
+            user_name: item.user_name,
+            quest_date: item.start,
+            quest_status: item.status,
+        });
+        return "success";
+
+    }
+    catch (error) {
+
+        console.log(error);
+        return "fail";
+    }
+}
+
 export const deleteStemp = async (item) => {
     try {
 
         const steampQuery = query(
             collection(DBservice, "stemp"),
-            where("uid", "==", auth.currentUser.uid),
+            where("uid", "==", userID),
             where("quest_date", "==", item)
         );
         const querySnapshot = await getDocs(steampQuery);
