@@ -13,7 +13,7 @@ import {
     Box,
     HStack
 } from "@chakra-ui/react";
-import {Input, StyleForm, Title, Wrapper} from "../style/styles";
+import {AccountWrapper, Input, StyleForm, Title, Wrapper} from "../style/styles";
 import React from "react";
 import {IoCheckbox} from "react-icons/io5";
 import {IoMdClose} from "react-icons/io";
@@ -37,11 +37,10 @@ export default function CreateAccount() {
     const [error, setError] = useState("");
     const [passwordCheck, setPasswordCheck] = useState(false);
     const [passwordChackSpan, setPasswordChackSpan] = useState("");
-    const [belong, setBelong] = useState("");
+    const [belong, setBelong] = useState(0);
     const navigation = useNavigate();
-
-
     const toast = useToast();
+    const emailCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
     const onChange = (event) => {
         const {target : {name, value}} = event;
@@ -66,7 +65,7 @@ export default function CreateAccount() {
     };
 
     const onSubmit = async (e) => {
-        if (username === "" || email === "" || password === "" || !passwordCheck || belong === ""){
+        if (username === "" || email === "" || password === "" || !passwordCheck || belong === 0){
             toast({
                 title: "회원가입 실패",
                 description: "모든 항목을 입력해주세요",
@@ -75,6 +74,19 @@ export default function CreateAccount() {
             })
             return
         }
+
+        if(!emailCheck.test(email)){
+            toast({
+                title: "이메일 입력을 확인해주세요",
+                description: "이메일이 잘못된 형식으로 입력되었습니다.",
+                status: "error",
+                isClosable: true,
+            })
+            return
+        }
+
+
+
 
 
         try {
@@ -109,11 +121,9 @@ export default function CreateAccount() {
 
     return (
         <>
-
             <Center>
-                <Wrapper>
+                <AccountWrapper>
                     <Title>회원가입</Title>
-                    <StyleForm onSubmit={onSubmit}>
                         <Input
                             name = "username"
                             placeholder = "닉네임"
@@ -135,7 +145,7 @@ export default function CreateAccount() {
                         </InputGroup>
                         <Input
                             name = "password"
-                            placeholder = "비밀번호"
+                            placeholder = "비밀번호 (8자리 이상)"
                             type = "password"
                             required
                             value = {password}
@@ -175,13 +185,38 @@ export default function CreateAccount() {
 
                         </InputGroup>
 
-                        <Input
+                        <Select
                             name = "belong"
-                            placeholder = "소속교회 ex)창조"
-                            type = "text"
                             required
                             value = {belong}
                             onChange = {onChange}
+                        >
+                            <option
+                                value={0}
+                            >
+                                소속 교회 선택
+                            </option>
+                            <option
+                                value={"창조"}
+                            >
+                                창조교회
+                            </option>
+
+                            <option
+                                value={"예수로"}
+                            >
+                                예수로교회
+                            </option>
+
+                        </Select>
+
+                        <Input
+                            name = "startDate"
+                            placeholder = ""
+                            type = "text"
+                            required
+                            value = {"2024-01-03"}
+                            readOnly={true}
                         />
 
                         <HStack
@@ -206,16 +241,18 @@ export default function CreateAccount() {
                         </HStack>
 
 
-                        <Input
-                            type = "submit"
-                            value ={!isLoading ? "로딩중..." : "회원가입"}
+                        <Button
+                            onClick={onSubmit}
+                            padding={"10px 20px"}
+                            margin={"5px 0px"}
+                            border-radius={"10px"}
+                            border={"10px"}
+                            width={"100%"}
 
-                        />
-
-
-                    </StyleForm>
-
-                </Wrapper>
+                        >
+                            {!isLoading ? "로딩중..." : "회원가입"}
+                        </Button>
+                </AccountWrapper>
             </Center>
         </>
     )

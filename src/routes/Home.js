@@ -21,6 +21,7 @@ export default function () {
         }
     }
 
+
     const todayCheck = async () => {
         const insertStempState = await insertStemp();
         if(insertStempState === "success"){
@@ -35,14 +36,13 @@ export default function () {
         }else if(insertStempState === "already") {
             tost({
                 title: "오류",
-                description: "이미 스템프를 받았습니다",
+                description: "이미 스탬프를 받았습니다",
                 status: "error",
                 isClosable: true,
             })
             navigation("/myState");
         }
     }
-
 
 
     return (

@@ -8,7 +8,7 @@ import {useState} from "react";
 
 export default function MyState () {
     const userName = localStorage.getItem("user_name");
-    const startYMD = "2023-12-10";
+    const startYMD = "2024-01-03";
     // 오늘 날짜와 startYMD 를 비교해서 D + 몇일인지 계산하는 로직이 필요함
     const today = new Date();
     const start = new Date(startYMD);
@@ -117,7 +117,7 @@ export default function MyState () {
                     w={'80%'}
                 >
                     <Text fontSize={'small'}>준비중</Text>
-                    <Text fontSize={'small'}>스템프기록</Text>
+                    <Text fontSize={'small'}>기록하기</Text>
                     <Text fontSize={'small'}>통계페이지</Text>
                     <Text fontSize={'small'}>준비중</Text>
                 </HStack>
