@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",                                 // 대상 JavaScript 버전
+    "module": "commonjs",                            // 사용 모듈 시스템
+    "lib": ["dom", "es6", "dom.iterable", "scripthost"],  // 컴파일러에 포함될 라이브러리 파일 목록
+    "allowJs": true,                                 // JavaScript 파일 컴파일 허용
+    "jsx": "react",                                  // JSX 코드를 React.createElement로 변환
+    "outDir": "./dist",                              // 출력 디렉터리
+    "strict": true,                                  // 모든 엄격한 타입-체킹 옵션 활성화
+    "moduleResolution": "node",                      // 모듈 해석 방식
+    "esModuleInterop": true,                         // 모든 모듈을 default export로 가져올 수 있게 허용
+    "skipLibCheck": true,                            // 성능을 위해 모든 선언 파일의 타입 체크를 생략
+    "forceConsistentCasingInFileNames": true         // 파일 이름의 대소문자 일관성 강제
+  },
+  "include": [                                       // 컴파일에 포함될 파일 또는 패턴
+    "src/**/*"
+  ],
+  "exclude": [                                       // 컴파일에서 제외될 파일 또는 패턴
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
