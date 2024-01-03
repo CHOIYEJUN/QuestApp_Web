@@ -1,19 +1,9 @@
 import axios from 'axios';
 import {addDoc, collection, doc, getDocs, where, query, setDoc, deleteDoc, getDoc} from "firebase/firestore";
 import {auth, DBservice} from "../fireBase";
+import {getToday} from "../util/DateUtil";
 
-const url = 'http://13.209.21.173:9095/Diary/';
-const allowOrigin = 'https://dailyquest-a912d.web.app/';
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth() + 1;
-const date = today.getDate();
-//만약 date 가 한자리 라면 앞에 0 붙혀줘야 함
-//ex) 2021-04-1 -> 2021-04-01 로 바꿔줘야 함
-const fixedMonth = month < 10 ? "0" + month : month;
-const fixedDate = date < 10 ? "0" + date : date;
-const week = ['일', '월', '화', '수', '목', '금', '토'];
-const todayString = year + "-" + fixedMonth + "-" + fixedDate;
+const todayString = getToday();
 const userID = localStorage.getItem("user_uid");
 
 export const getAllStemp = async () => {
