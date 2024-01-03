@@ -4,6 +4,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import {forwardRef, useEffect, useImperativeHandle, useState} from "react";
 import {Box, useToast} from "@chakra-ui/react";
 import {getStemp} from "../../hooks/stempHook";
+import {getToday} from "../../util/DateUtil";
 
 const Calendar = forwardRef((props, ref) => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -11,6 +12,7 @@ const Calendar = forwardRef((props, ref) => {
     const [newEvents, setNewEvents] = useState([]);
     const userPhone = localStorage.getItem("user_phone");
     const toster = useToast();
+    const today = getToday();
 
 
     useEffect(() => {
@@ -45,6 +47,7 @@ const Calendar = forwardRef((props, ref) => {
                 description: "이미 스탬프를 받은 날 입니다.",
                 status: "error",
                 isClosable: true,
+                duration: 1000,
             })
             return;
         }
@@ -53,6 +56,17 @@ const Calendar = forwardRef((props, ref) => {
 
     const dateClick = (info) => {
         const clickedDate = info.dateStr;
+
+        if(clickedDate >= today) {
+            toster({
+                title: "오류",
+                description: "과거 날짜만 선택할 수 있습니다.",
+                status: "error",
+                isClosable: true,
+                duration: 1000,
+            })
+            return;
+        }
         const isSelected = events.find((event) => event.start === clickedDate);
         if (isSelected) {
             // 이미 선택된 날짜를 다시 클릭하면 색깔 지우고 events에서 삭제
