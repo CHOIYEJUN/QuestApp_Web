@@ -7,11 +7,12 @@ export default function Admin(){
 
     const childComponentRef = useRef();
     const toster = useToast();
-    const [refresh, setRefresh] = useState(false);
-    const onClick =  (e) => {
-        const childValue = childComponentRef.current.getChildValue();
+
+    const onClick = async (e) => {
+        let childCheckData =  childComponentRef.current.getChildValue();
+
         const buttonName = e.target.name;
-        if(childValue.length === 0) {
+        if(childCheckData.length === 0) {
             toster({
                 title: "오류",
                 description: "날짜를 선택해주세요.",
@@ -20,8 +21,8 @@ export default function Admin(){
             })
             return;
         }
-        postAdminStemp(childValue, buttonName);
-
+        await postAdminStemp(childCheckData, buttonName);
+        childCheckData = [];
 
     }
 
