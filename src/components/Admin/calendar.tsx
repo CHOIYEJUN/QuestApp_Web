@@ -98,6 +98,14 @@ export const Calendar = forwardRef((props:any, ref:any) => {
                 setSelectedDate(null);
                 setEvents(events.filter((event) => event.start !== clickedDate));
                 setNewEvents(newEvents.filter((event) => event.start !== clickedDate));
+            }else {
+                onOpen();
+                const data : DeleteEvent = {
+                    start: info.dateStr,
+                    uid: user_ID,
+                    user_name: user_name,
+                }
+                setDeleteDate(data);
             }
         } else {
             // 클릭한 날짜를 색깔로 표시하고 events에 추가
@@ -108,6 +116,7 @@ export const Calendar = forwardRef((props:any, ref:any) => {
     };
 
     const eventClicker = (info : any) => {
+
         onOpen();
         const data : DeleteEvent = {
             start: info.event.startStr,
@@ -132,6 +141,7 @@ export const Calendar = forwardRef((props:any, ref:any) => {
                 return;
             }
             const deleteResult = await DeleteUserStemp(deleteDate);
+
 
             if(deleteResult === "success") {
                 toster({
@@ -158,6 +168,7 @@ export const Calendar = forwardRef((props:any, ref:any) => {
 
         refreshCalendar: () => {
             getEvents(user_ID);
+            setNewEvents([]);
         },
     }));
 
@@ -181,7 +192,7 @@ export const Calendar = forwardRef((props:any, ref:any) => {
                 fixedWeekCount={false}
                 dateClick={dateClick}
                 events={events}
-                eventClick={eventClicker}
+                /*eventClick={eventClicker}*/
 
             />
 
