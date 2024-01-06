@@ -11,6 +11,7 @@ export default function Admin(){
     const onClick = async (e) => {
         let childCheckData =  childComponentRef.current.getChildValue();
 
+
         const buttonName = e.target.name;
         if(childCheckData.length === 0) {
             toster({
