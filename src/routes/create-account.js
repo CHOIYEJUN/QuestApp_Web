@@ -57,6 +57,7 @@ export default function CreateAccount() {
             }else {
                 setPasswordChackSpan("비밀번호가 일치하지 않습니다.");
                 setPasswordCheck(false);
+
             }
             setPasswordConfirm(value);
         }else if(name === "belong"){
