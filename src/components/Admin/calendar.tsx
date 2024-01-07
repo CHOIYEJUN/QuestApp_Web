@@ -75,7 +75,6 @@ export const Calendar = forwardRef((props:any, ref:any) => {
     const titleFormat = (date : any) => {
         const year = date.date.year;
         const month = date.date.month + 1;
-
         return year + "년 " + month + "월";
     };
 
@@ -141,8 +140,6 @@ export const Calendar = forwardRef((props:any, ref:any) => {
                 return;
             }
             const deleteResult = await DeleteUserStemp(deleteDate);
-
-
             if(deleteResult === "success") {
                 toster({
                     title: "삭제되었습니다.",
@@ -221,7 +218,6 @@ export const Calendar = forwardRef((props:any, ref:any) => {
                         <AlertDialogBody>
                             <Text>"{user_name}" 님의,</Text>
                             <Text>"{deleteDate?.start}" 에 찍힌 스탬프를 삭제하시겠습니까?</Text>
-
                         </AlertDialogBody>
 
                         <AlertDialogFooter>

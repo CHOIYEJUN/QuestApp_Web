@@ -28,3 +28,4 @@
     - chakra-ui
 - Back
     - FireBase
+    - SpringBoot
