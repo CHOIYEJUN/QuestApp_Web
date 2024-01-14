@@ -77,9 +77,6 @@ export default function MyState () {
                     m={'10px 0'}
                     w={'100%'}
                     h={'40px'}
-                    backgroundImage={'url(https://firebasestorage.googleapis.com/v0/b/dailyquest-a912d.appspot.com/o/%EB%82%A0%EC%94%A8.png?alt=media&token=94231feb-9217-4c97-848c-6f644cf74a7e)'}
-                    backgroundPosition="center"
-                    backgroundRepeat="no-repeat"
                 >
                     <Text
                         fontSize={'l'}
@@ -116,10 +113,10 @@ export default function MyState () {
                     m={'5px 0 0 0'}
                     w={'80%'}
                 >
-                    <Text fontSize={'small'}>준비중</Text>
+                    <Text fontSize={'small'}>로그아웃</Text>
                     <Text fontSize={'small'}>기록하기</Text>
-                    <Text fontSize={'small'}>통계페이지</Text>
-                    <Text fontSize={'small'}>준비중</Text>
+                    <Text fontSize={'small'}>통계 페이지</Text>
+                    <Text fontSize={'small'}>이벤트</Text>
                 </HStack>
 
             </VStack>
