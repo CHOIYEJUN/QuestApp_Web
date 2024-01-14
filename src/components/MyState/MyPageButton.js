@@ -17,12 +17,6 @@ export default function MyPageButton() {
     const toast = useToast();
     const onclick = (e) => {
        onOpen();
-        toast({
-            title: "서비스 준비중입니다.",
-            status: "warning",
-            duration: 2000,
-            isClosable: true,
-        })
 
     }
     const onLogout = async () => {
