@@ -1,4 +1,4 @@
-import {Box, Button, Center, HStack, IconButton, Image, Text, useToast, VStack} from "@chakra-ui/react";
+import {Box, Button, Center, HStack, Icon, IconButton, Image, Img, Text, useToast, VStack} from "@chakra-ui/react";
 import Calendar from "../components/Statistics/Calendar";
 import {FaCaretLeft, FaCaretRight} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
@@ -43,7 +43,26 @@ export default function Statistics () {
                     p={'10px 0 10px 0'}
                 >
                     <Calendar />
+
                 </Center>
+                <HStack width={'100%'} justifyContent={'center'}>
+                    <Box background={'#3298af'} width={'20px'} height={'20px'}>
+                        <Img src={"https://firebasestorage.googleapis.com/v0/b/dailyquest-a912d.appspot.com/o/%ED%95%98%ED%8A%B8.png?alt=media&token=1bd227db-f679-4a83-8557-0b7e4f7a200f"}></Img>
+                    </Box>
+                    <Text fontSize={'10px'}>
+                        모두가 읽었어요
+                    </Text>
+
+                    <Box background={'#3298af'} width={'20px'} height={'20px'}></Box>
+                    <Text fontSize={'10px'}>
+                        절반이상이 읽었어요
+                    </Text>
+
+                    <Box background={'#e8e4ba'} width={'20px'} height={'20px'}></Box>
+                    <Text fontSize={'10px'}>
+                        절반이하만 읽었어요
+                    </Text>
+                </HStack>
 
                 <Box
                     w={'100%'}

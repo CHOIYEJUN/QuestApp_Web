@@ -45,10 +45,10 @@ const Calendar = forwardRef((props, ref) => {
             // 색상 결정
             let backgroundColor;
             if (rate <= 40) {
-                backgroundColor = "#E9F4F6"; // 0%~40%
+                backgroundColor = "#e8e4ba"; // 0%~40%
                 hartImg = ""
             } else if (rate <= 80) {
-                backgroundColor = "#97c7cb"; // 41%~80%
+                backgroundColor = "#3298af"; // 41%~80%
                 hartImg = ""
             } else {
                 backgroundColor = "#3298af"; // 81%~100%
