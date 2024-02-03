@@ -19,6 +19,8 @@ export default function Calendar(props) {
     const toast = useToast();
     let excellentNum = 0;
     let goodNum = 0;
+    let m_excellentNum = 0;
+    let m_goodNum = 0;
 
     useEffect(() => {
         getEvents();
@@ -29,9 +31,16 @@ export default function Calendar(props) {
         const events = stemp.map((item) => {
             if(item.quest_status === "excellent") {
                 excellentNum++;
+                if(item.quest_date.substring(0, 7) === new Date().toISOString().substring(0, 7)) {
+                    m_excellentNum++;
+                }
             }else if(item.quest_status === "good") {
                 goodNum++;
+                if(item.quest_date.substring(0, 7) === new Date().toISOString().substring(0, 7)) {
+                    m_goodNum++;
+                }
             }
+
 
             return {
                 start: item.quest_date,
@@ -42,7 +51,7 @@ export default function Calendar(props) {
 
         })
         setEvents(events);
-        props.propFunction(excellentNum, goodNum);
+        props.propFunction(excellentNum, goodNum, m_excellentNum, m_goodNum );
     }
 
 
