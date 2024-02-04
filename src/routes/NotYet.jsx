@@ -3,7 +3,7 @@ import {Wrapper} from "../style/styles";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
-export default function Notyet() {
+export default function NotYet() {
     const navigation = useNavigate();
     const onClick = (e) => {
         if(e.target.name === "myState"){

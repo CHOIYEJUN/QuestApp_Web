@@ -17,7 +17,6 @@ export const getAllStemp = async () => {
         querySnapshot.forEach((doc) => {
             stempList.push(doc.data());
         });
-        console.log(stempList);
         return stempList;
 
     }
@@ -39,7 +38,6 @@ export const getStemp = async () => {
         querySnapshot.forEach((doc) => {
             stempList.push(doc.data());
         });
-        console.log(stempList);
         return stempList;
 
     }
@@ -157,7 +155,6 @@ export const getUserCount = async () => {
         querySnapshot.forEach((doc) => {
             userList.push(doc.data());
         });
-        console.log(userList);
         return userList.length;
 
     }

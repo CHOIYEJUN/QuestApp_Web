@@ -1,14 +1,12 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import {forwardRef, useEffect, useImperativeHandle, useState} from "react";
+import { useEffect, useState} from "react";
 import {Box, Center, useToast} from "@chakra-ui/react";
-import {getAllStemp, getStemp, getUserCount} from "../../hooks/stempHook";
+import {getAllStemp, getUserCount} from "../../hooks/stempHook";
 
-const Calendar = forwardRef((props, ref) => {
-    const [selectedDate, setSelectedDate] = useState(null);
+const Calendar = (props) => {
     const [events, setEvents] = useState([]);
-    const [newEvents, setNewEvents] = useState([]);
     const userPhone = localStorage.getItem("user_phone");
     const toster = useToast();
 
@@ -22,7 +20,6 @@ const Calendar = forwardRef((props, ref) => {
 
         // 회원 수 (여기서는 6명으로 가정)
         const totalMembers  = await getUserCount();
-
 
         // 날짜별 수행 횟수를 계산하기 위한 객체 초기화
         let countByDate = {};
@@ -64,6 +61,7 @@ const Calendar = forwardRef((props, ref) => {
         });
 
         setEvents(events);
+        props.propFunction(stemp);
     }
 
     const titleFormat = (date) => {
@@ -101,12 +99,6 @@ const Calendar = forwardRef((props, ref) => {
     };
 
 
-    useImperativeHandle(ref, () => ({
-        getChildValue: () => {
-            return newEvents;
-        }
-    }));
-
     return (
         <Box w={"330px"}>
             <FullCalendar
@@ -131,6 +123,6 @@ const Calendar = forwardRef((props, ref) => {
         </Box>
 
     );
-});
+};
 
 export default Calendar;

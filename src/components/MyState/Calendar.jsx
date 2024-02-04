@@ -41,7 +41,6 @@ export default function Calendar(props) {
                 }
             }
 
-
             return {
                 start: item.quest_date,
                 display: "background",
