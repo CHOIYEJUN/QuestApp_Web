@@ -4,7 +4,7 @@
 
 <img src="https://velog.velcdn.com/images/dpwns108/post/db29d7d7-fc60-499e-bf48-4d80ce774a15/image.png" width="400px" height="" >
 
-<img src="https://velog.velcdn.com/images/dpwns108/post/73240793-d45a-4593-b815-8779709556f2/image.png" width="400px" height="">
+<img src="https://velog.velcdn.com/images/dpwns108/post/2231698e-3193-4446-90ca-9a786e5ca712/image.png" width="400px" height="">
 
 </div>
 
@@ -39,8 +39,11 @@
 #### 2023.12.22 
 - 모두의 진행판 색상 표현 안내판 추가 
 
-#### 2023.01.12
+#### 2024.01.12
 - 모바일 환경에서의 레이아웃 수정 및 하단바 추가 및 스타일 수정 
 
-#### 2023.02.03
+#### 2024.02.03
 - 이번달 캘린더 날씨별 스템프 이미지 수정
+
+#### 2024.02.10
+- 통계페이지 실 분석 데이터 반영하여 수정

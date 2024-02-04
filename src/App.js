@@ -3,7 +3,7 @@ import CreateAccount from "./routes/create-account";
 import Login from "./routes/login";
 import Home from "./routes/Home";
 import TodayDone from "./routes/TodayDone";
-import Notyet from "./routes/NotYet";
+import NotYet from "./routes/NotYet";
 import MyState from "./routes/MyState";
 import PrivateRoute from "./components/PrivateRoute";
 import CheckOtherDay from "./routes/CheckOtherDay";
@@ -25,7 +25,7 @@ function App() {
         },
         {
             path: "/notyet",
-            element: <PrivateRoute element={<Notyet />} />,
+            element: <PrivateRoute element={<NotYet />} />,
         },
         {
             path: "/myState",
