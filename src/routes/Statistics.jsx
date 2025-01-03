@@ -1,4 +1,4 @@
-import {Box, Button, Center, HStack, Icon, IconButton, Image, Img, Text, useToast, VStack} from "@chakra-ui/react";
+import {Box, Button, Center, HStack,  Image, Img, Text, useToast, VStack} from "@chakra-ui/react";
 import Calendar from "../components/Statistics/Calendar";
 import {FaCaretLeft, FaCaretRight} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
