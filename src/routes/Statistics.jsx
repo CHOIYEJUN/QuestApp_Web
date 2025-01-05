@@ -215,7 +215,7 @@ export default function Statistics () {
                             w={'90px'}
                         >
                             <Image
-                                src={thisMonth_1st.img}
+                                src={thisMonth_1st?.img}
                                 w={'90px'}
                                 h={'90px'}
                                 alignItems={'center'}
@@ -225,7 +225,7 @@ export default function Statistics () {
                                 fontSize={"12px"}
                                 textAlign={'center'}
                             >
-                                {thisMonth_1st.name}
+                                {thisMonth_1st?.name}
                             </Text>
 
                         </Box>
@@ -234,7 +234,7 @@ export default function Statistics () {
                             w={'75px'}
                         >
                             <Image
-                                src={thisMonth_2nd.img}
+                                src={thisMonth_2nd?.img}
                                 w={'75px'}
                                 h={'75px'}
                                 alignItems={'center'}
@@ -245,7 +245,7 @@ export default function Statistics () {
                                 fontSize={"12px"}
                                 textAlign={'center'}
                             >
-                                {thisMonth_2nd.name}
+                                {thisMonth_2nd?.name}
                             </Text>
 
                         </Box>
@@ -254,7 +254,7 @@ export default function Statistics () {
                             w={'50px'}
                         >
                             <Image
-                                src={thisMonth_3rd.img}
+                                src={thisMonth_3rd?.img}
                                 w={'50px'}
                                 h={'50px'}
                                 alignItems={'center'}
@@ -265,7 +265,7 @@ export default function Statistics () {
                                 fontSize={"12px"}
                                 textAlign={'center'}
                             >
-                                {thisMonth_3rd.name}
+                                {thisMonth_3rd?.name}
                             </Text>
 
                         </Box>

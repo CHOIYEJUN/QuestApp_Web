@@ -1,12 +1,16 @@
-import {Button, Center, Text, useToast} from "@chakra-ui/react";
+import {Box, Button, Center, Flex, Text, useToast} from "@chakra-ui/react";
 import {Title, Wrapper} from "../style/styles";
 import {useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import {insertStemp} from "../hooks/stempHook";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {DBservice} from "../fireBase";
 
 
 export default function () {
+    const [verses, setVerses] = useState([]);
+    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD 형식의 오늘 날짜
 
     const navigation = useNavigate();
     const tost = useToast();
@@ -43,6 +47,30 @@ export default function () {
             navigation("/myState");
         }
     }
+
+    useEffect(() => {
+        const fetchTodayVerses = async () => {
+            try {
+                const q = query(
+                    collection(DBservice, "bibleDate"),
+                    where("date", "==", today)
+                );
+
+                const querySnapshot = await getDocs(q);
+                const verseList = [];
+
+                querySnapshot.forEach((doc) => {
+                    verseList.push(doc.data());
+                });
+
+                setVerses(verseList);
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+            }
+        };
+
+        fetchTodayVerses();
+    }, [today]);
 
 
     return (
@@ -94,6 +122,20 @@ export default function () {
                     >
                         오늘이 아닌 다른 날 것 했어요 😁
                     </Button>
+
+
+                    <Box margin={'100px 0 0 0'}>
+                        <Text fontSize={'16px'} fontWeight={'bold'}>오늘의 말씀</Text>
+                        {verses.length > 0 ? (
+                            verses.map((verse, index) => (
+                                <Text key={index}  fontSize={'14px'} margin={'5px 0 0 0'}>
+                                    {verse.book} {verse.chapter}장
+                                </Text>
+                            ))
+                        ) : (
+                            <Text>오늘의 말씀이 없습니다.</Text>
+                        )}
+                    </Box>
 
                 </Wrapper>
             </Center>
