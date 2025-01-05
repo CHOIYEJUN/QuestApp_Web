@@ -6,6 +6,7 @@ import {insertStemp} from "../hooks/stempHook";
 import {useEffect, useState} from "react";
 import {collection, getDocs, query, where} from "firebase/firestore";
 import {DBservice} from "../fireBase";
+import {bibleDate} from "../data/bibleSchedule";
 
 
 export default function () {
@@ -49,24 +50,9 @@ export default function () {
     }
 
     useEffect(() => {
-        const fetchTodayVerses = async () => {
-            try {
-                const q = query(
-                    collection(DBservice, "bibleDate"),
-                    where("date", "==", today)
-                );
-
-                const querySnapshot = await getDocs(q);
-                const verseList = [];
-
-                querySnapshot.forEach((doc) => {
-                    verseList.push(doc.data());
-                });
-
-                setVerses(verseList);
-            } catch (error) {
-                console.error("Error fetching data: ", error);
-            }
+        const fetchTodayVerses = () => {
+            const todayVerses = bibleDate[today] || [];  // 오늘 날짜에 맞는 데이터 불러오기
+            setVerses(todayVerses);
         };
 
         fetchTodayVerses();
@@ -125,7 +111,7 @@ export default function () {
 
 
                     <Box margin={'100px 0 0 0'}>
-                        <Text fontSize={'16px'} fontWeight={'bold'}>오늘의 말씀</Text>
+                        <Text textAlign={'center'} fontSize={'16px'} fontWeight={'bold'}>오늘의 말씀</Text>
                         {verses.length > 0 ? (
                             verses.map((verse, index) => (
                                 <Text key={index}  fontSize={'14px'} margin={'5px 0 0 0'}>

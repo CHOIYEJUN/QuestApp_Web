@@ -1,10 +1,8 @@
 import {Button, Text, useToast, VStack} from "@chakra-ui/react";
 import {Calendar} from "../components/Admin/calendar";
-import React, {forwardRef, useRef, useState} from "react";
-import {insertCheckAdminDay, insertCheckOtherDay} from "../hooks/stempHook";
-import bibleSchedule from '../data/bibleSchedule.json'
-import {addDoc, collection} from "firebase/firestore";
-import {DBservice} from "../fireBase";
+import React, {useRef} from "react";
+import {insertCheckAdminDay} from "../hooks/stempHook";
+
 
 export default function Admin(){
 
@@ -64,45 +62,11 @@ export default function Admin(){
 
             childComponentRef.current.refreshCalendar();
 
-
         } catch (e) {
             console.log(e);
         }
 
     }
-
-    const handleBibleDataClick = async  () => {
-
-
-        const data = bibleSchedule?.bibleDate;
-        try {
-            // JSON 데이터를 순회하며 Firestore에 추가
-            for (const date in data) {
-                const entries = data[date];
-
-                for (const entry of entries) {
-                    const docData = {
-                        date,
-                        no: entry.no,
-                        book: entry.book,
-                        chapter: entry.chapter
-                    };
-
-                    // Firestore에 문서 추가
-                    await addDoc(collection(DBservice, "bibleDate"), docData);
-                    console.log(`Added ${entry.book} ${entry.chapter} on ${date}`);
-                }
-            }
-
-            console.log("All data uploaded successfully!");
-        } catch (error) {
-            console.error("Error adding document: ", error);
-        }
-
-
-
-    }
-
 
     return (
         <>
@@ -136,9 +100,7 @@ export default function Admin(){
                     나중에 완료
                 </Button>
 
-               {/* <Button onClick={handleBibleDataClick}>
-                    성경 데이터 넣기
-                </Button>*/}
+
 
             </VStack>
 

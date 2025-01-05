@@ -10,6 +10,7 @@ import CheckOtherDay from "./routes/CheckOtherDay";
 import OtherDayDone from "./routes/OtherDayDone";
 import Statistics from "./routes/Statistics";
 import Admin from "./routes/Admin";
+import BibleTracker from "./routes/BibleTracker";
 
 
 function App() {
@@ -42,6 +43,11 @@ function App() {
         {
             path: "/statistics",
             element: <PrivateRoute element={<Statistics />} />,
+        },
+        {
+            path: "/bibleTracker",
+            element : <BibleTracker/>
+
         },
         {
             path: "/create-account",

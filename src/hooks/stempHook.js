@@ -1,7 +1,7 @@
-import axios from 'axios';
 import {addDoc, collection, doc, getDocs, where, query, setDoc, deleteDoc, getDoc} from "firebase/firestore";
 import {auth, DBservice} from "../fireBase";
 import {getToday} from "../util/DateUtil";
+import {BibleEntryType} from "../type/bibleType";
 
 const todayString = getToday();
 const userID = localStorage.getItem("user_uid");
