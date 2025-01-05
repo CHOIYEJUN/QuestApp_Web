@@ -9,6 +9,6 @@ export async function CreateUserField(uid, email, username, belong) {
         username: username,
         belong: belong,
         createdAt: Date.now(),
-        startDay: "2023-12-10",
+        startDay: "2025-01-06",
     });
 }

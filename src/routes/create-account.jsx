@@ -37,7 +37,7 @@ export default function CreateAccount() {
     const [error, setError] = useState("");
     const [passwordCheck, setPasswordCheck] = useState(false);
     const [passwordChackSpan, setPasswordChackSpan] = useState("");
-    const [belong, setBelong] = useState(0);
+    const [belong, setBelong] = useState();
     const navigation = useNavigate();
     const toast = useToast();
     const emailCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -66,7 +66,7 @@ export default function CreateAccount() {
     };
 
     const onSubmit = async (e) => {
-        if (username === "" || email === "" || password === "" || !passwordCheck || belong === 0){
+        if (username === "" || email === "" || password === "" || !passwordCheck || belong === ''){
             toast({
                 title: "회원가입 실패",
                 description: "모든 항목을 입력해주세요",
@@ -99,7 +99,7 @@ export default function CreateAccount() {
             setError("");
 
             navigation("/login");
-            CreateUserField(data.user.uid, email, username, belong);
+            CreateUserField(data?.user?.uid, email, username, belong);
 
 
         }catch (e){
@@ -186,37 +186,21 @@ export default function CreateAccount() {
 
                         </InputGroup>
 
-                        <Select
+                        <Input
                             name = "belong"
                             required
                             value = {belong}
                             onChange = {onChange}
+                            placeholder = "소속 교회"
                         >
-                            <option
-                                value={0}
-                            >
-                                소속 교회 선택
-                            </option>
-                            <option
-                                value={"창조"}
-                            >
-                                창조교회
-                            </option>
-
-                            <option
-                                value={"예수로"}
-                            >
-                                예수로교회
-                            </option>
-
-                        </Select>
+                        </Input>
 
                         <Input
                             name = "startDate"
                             placeholder = ""
                             type = "text"
                             required
-                            value = {"2024-01-03"}
+                            value = {"2025-01-06"}
                             readOnly={true}
                         />
 

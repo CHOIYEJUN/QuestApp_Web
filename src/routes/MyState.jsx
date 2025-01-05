@@ -20,7 +20,7 @@ import {
 export default function MyState () {
 
     const userName = localStorage.getItem("user_name");
-    const startYMD = "2024-01-03";
+    const startYMD = "2025-01-06";
     // 오늘 날짜와 startYMD 를 비교해서 D + 몇일인지 계산하는 로직이 필요함
     const today = new Date();
     const start = new Date(startYMD);

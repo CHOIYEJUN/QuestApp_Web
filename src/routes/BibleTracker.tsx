@@ -115,7 +115,7 @@ const BibleTracker = () => {
     return (
         <Box p={0}>
             <Button onClick={() => navigate(-1)}>{'< back'}</Button>
-            <Heading mb={6} textAlign={'center'}>성경 출석표</Heading>
+            <Heading mb={6} textAlign={'center'}>성경 읽기표</Heading>
             <VStack align="start" spacing={8}>
                 <Table margin={0} padding={0}>
                 {Object.entries(groupedByBook).map(([book, chapters]) => (

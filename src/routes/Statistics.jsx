@@ -138,14 +138,8 @@ export default function Statistics () {
     const onClick = (e) => {
         if(e.target.name === "myState"){
             navigation("/myState");
-        }else if(e.target.name === "event") {
-            toast({
-                title: "준비중인 서비스입니다.",
-                status: "warning",
-                duration: 1000,
-                isClosable: true,
-
-            });
+        }else if(e.target.name === "bibleTracker") {
+            navigation("/bibleTracker");
         }
     }
 
@@ -302,7 +296,7 @@ export default function Statistics () {
                                 color={'white'}
                                 textAlign={'center'}
                             >
-                                {total_1nd.name}
+                                {total_1nd?.name}
                             </Text>
 
 
@@ -340,7 +334,7 @@ export default function Statistics () {
                                         2등
                                     </Text>
                                     <Image
-                                        src={total_2nd.img}
+                                        src={total_2nd?.img}
                                         w={'50px'}
                                         alignItems={'center'}
                                     >
@@ -350,7 +344,7 @@ export default function Statistics () {
                                         color={'white'}
                                         textAlign={'center'}
                                     >
-                                        {total_2nd.name}
+                                        {total_2nd?.name}
                                     </Text>
                                 </Box>
 
@@ -369,7 +363,7 @@ export default function Statistics () {
                                         3등
                                     </Text>
                                     <Image
-                                        src={total_3rd.img}
+                                        src={total_3rd?.img}
                                         w={'50px'}
                                         alignItems={'center'}
                                     >
@@ -379,7 +373,7 @@ export default function Statistics () {
                                         color={'white'}
                                         textAlign={'center'}
                                     >
-                                        {total_3rd.name}
+                                        {total_3rd?.name}
                                     </Text>
                                 </Box>
 
@@ -397,7 +391,7 @@ export default function Statistics () {
                                         4등
                                     </Text>
                                     <Image
-                                        src={total_4th.img}
+                                        src={total_4th?.img}
                                         w={'50px'}
                                         alignItems={'center'}
                                     >
@@ -407,7 +401,7 @@ export default function Statistics () {
                                         color={'white'}
                                         textAlign={'center'}
                                     >
-                                        {total_4th.name}
+                                        {total_4th?.name}
                                     </Text>
                                 </Box>
                             </HStack>
@@ -433,7 +427,7 @@ export default function Statistics () {
                         onClick={onClick}
                     >
                         <FaCaretLeft />
-                         MY PAGE
+                         마이페이지
                     </Button>
 
                     <Button
@@ -441,10 +435,10 @@ export default function Statistics () {
                         color={'white'}
                         fontSize={'14px'}
                         w={"100px"}
-                        name={"event"}
+                        name={"bibleTracker"}
                         onClick={onClick}
                     >
-                        EVENT
+                        성경 읽기표
                         <FaCaretRight />
                     </Button>
 
