@@ -4,15 +4,11 @@ import {useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import {insertStemp} from "../hooks/stempHook";
 import {useEffect, useState} from "react";
-import {collection, getDocs, query, where} from "firebase/firestore";
-import {DBservice} from "../fireBase";
-import {bibleDate} from "../data/bibleSchedule";
+import { bibleDate } from "../data/bibleSchedule.ts";
 
 
 export default function () {
     const [verses, setVerses] = useState([]);
-    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD 형식의 오늘 날짜
-
     const navigation = useNavigate();
     const tost = useToast();
     const onClick = (e) => {
@@ -49,14 +45,25 @@ export default function () {
         }
     }
 
-    useEffect(() => {
-        const fetchTodayVerses = () => {
-            const todayVerses = bibleDate[today] || [];  // 오늘 날짜에 맞는 데이터 불러오기
-            setVerses(todayVerses);
-        };
+    const getKoreaDate = () => {
+        const now = new Date();
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;  // UTC 시간 계산
+        console.log('utc : ', new Date(utc).toISOString())
+        const koreaTimeOffset = 9 * 60 * 60 * 1000;  // 한국 시간(UTC+9) 밀리초 변환
+        const koreaDate = new Date(utc + koreaTimeOffset);  // UTC 기준으로 9시간 추가
+        return koreaDate.toISOString().split("T")[0];  // YYYY-MM-DD 형식 반환
+    }
 
-        fetchTodayVerses();
-    }, [today]);
+    const setTodayVerses = () => {
+        const today = getKoreaDate();  // 한국 시간으로 오늘 날짜 가져오기
+        console.log('today : ', today)
+        const todayVerses = bibleDate[today] || [];
+        setVerses(todayVerses);
+    }
+
+    useEffect(() => {
+        setTodayVerses()
+    }, [verses]);
 
 
     return (
