@@ -53,30 +53,40 @@ export default function MyState () {
         const myScore = m_excellentCount * 5 + m_goodCount * 3;
         const percent = Math.ceil((myScore / maxScore) * 100);
 
-        if(percent >= 90) {
-            setSteampImg(REACT_APP_STEAMP_IMG_10);
-        }else if (percent >= 80) {
-            setSteampImg(REACT_APP_STEAMP_IMG_9);
-        }else if(percent >= 70) {
-            setSteampImg(REACT_APP_STEAMP_IMG_8);
-        }else if(percent >= 60) {
-            setSteampImg(REACT_APP_STEAMP_IMG_7);
-        }else if(percent >= 50) {
-            setSteampImg(REACT_APP_STEAMP_IMG_6);
-        }else if(percent >= 40) {
-            setSteampImg(REACT_APP_STEAMP_IMG_5);
-        }else if(percent >= 30) {
-            setSteampImg(REACT_APP_STEAMP_IMG_4);
-        }else if(percent >= 20) {
-            setSteampImg(REACT_APP_STEAMP_IMG_3);
-        }else if(percent >= 10) {
-            setSteampImg(REACT_APP_STEAMP_IMG_2);
-        }else {
-            setSteampImg(REACT_APP_STEAMP_IMG_1);
+        switch (true) {
+            case (percent >= 90):
+                setSteampImg(REACT_APP_STEAMP_IMG_10);
+                break;
+            case (percent >= 80):
+                setSteampImg(REACT_APP_STEAMP_IMG_9);
+                break;
+            case (percent >= 70):
+                setSteampImg(REACT_APP_STEAMP_IMG_8);
+                break;
+            case (percent >= 60):
+                setSteampImg(REACT_APP_STEAMP_IMG_7);
+                break;
+            case (percent >= 50):
+                setSteampImg(REACT_APP_STEAMP_IMG_6);
+                break;
+            case (percent >= 40):
+                setSteampImg(REACT_APP_STEAMP_IMG_5);
+                break;
+            case (percent >= 30):
+                setSteampImg(REACT_APP_STEAMP_IMG_4);
+                break;
+            case (percent >= 20):
+                setSteampImg(REACT_APP_STEAMP_IMG_3);
+                break;
+            case (percent >= 10):
+                setSteampImg(REACT_APP_STEAMP_IMG_2);
+                break;
+            default:
+                setSteampImg(REACT_APP_STEAMP_IMG_1);
+                break;
         }
 
     }
-
 
     return(
         <>
