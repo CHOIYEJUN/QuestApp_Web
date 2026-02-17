@@ -7,89 +7,72 @@ import {
     useDisclosure, useToast
 } from "@chakra-ui/react";
 import {useEffect, useState} from "react";
-import {deleteStemp, getStemp} from "../../hooks/stempHook";
+import {getBibleReadDates, deleteBibleReadsByDate} from "../../hooks/bibleReadsHook";
 import React from "react";
 
 export default function Calendar(props) {
     const [events, setEvents] = useState([]);
-    const userID = localStorage.getItem("user_uid");
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const cancelRef = React.useRef()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const cancelRef = React.useRef();
     const [deleteDate, setDeleteDate] = useState(null);
     const toast = useToast();
-    let excellentNum = 0;
-    let goodNum = 0;
-    let m_excellentNum = 0;
-    let m_goodNum = 0;
 
     useEffect(() => {
         getEvents();
     }, []);
 
     const getEvents = async () => {
-        const stemp = await getStemp(userID);
-        const events = stemp.map((item) => {
-            if(item.quest_status === "excellent") {
-                excellentNum++;
-                if(item.quest_date.substring(0, 7) === new Date().toISOString().substring(0, 7)) {
-                    m_excellentNum++;
-                }
-            }else if(item.quest_status === "good") {
-                goodNum++;
-                if(item.quest_date.substring(0, 7) === new Date().toISOString().substring(0, 7)) {
-                    m_goodNum++;
-                }
-            }
+        const readDates = await getBibleReadDates();
+        const thisMonth = new Date().toISOString().substring(0, 7);
+        let m_excellentNum = 0;
+        readDates.forEach((d) => {
+            if (d.substring(0, 7) === thisMonth) m_excellentNum++;
+        });
+        const excellentNum = readDates.length;
+        const goodNum = 0;
+        const m_goodNum = 0;
 
-            return {
-                start: item.quest_date,
-                display: "background",
-                name: item.user_name,
-                backgroundColor: item.quest_status === "excellent" ? "#5daf42" : "#e7b840"
-            }
-
-        })
-        setEvents(events);
-        props.propFunction(excellentNum, goodNum, m_excellentNum, m_goodNum );
-    }
-
+        const eventsList = readDates.map((date) => ({
+            start: date,
+            display: "background",
+            backgroundColor: "#5daf42",
+        }));
+        setEvents(eventsList);
+        props.propFunction(excellentNum, goodNum, m_excellentNum, m_goodNum);
+    };
 
     const titleFormat = (date) => {
         const year = date.date.year;
         const month = date.date.month + 1;
-
         return year + "년 " + month + "월";
-    }
+    };
+
     const eventClick = (info) => {
         onOpen();
         setDeleteDate(info.event.startStr);
-    }
+    };
+
     const onDeleteBtn = async () => {
         onClose();
-        const deleteState = await deleteStemp(deleteDate);
+        const deleteState = await deleteBibleReadsByDate(deleteDate);
 
-        if(deleteState === "success") {
+        if (deleteState === "success") {
             toast({
                 title: "삭제완료",
-                description: "삭제되었습니다.",
+                description: "해당 날짜의 읽기 기록이 삭제되었습니다.",
                 status: "success",
                 isClosable: true,
-            })
-            onClose();
+            });
             getEvents();
-
-
-        }else if(deleteState === "fail") {
+        } else {
             toast({
                 title: "오류",
                 description: "관리자에게 문의바랍니다.",
                 status: "error",
                 isClosable: true,
-            })
-
+            });
         }
-
-    }
+    };
 
     return(
         <>
@@ -129,7 +112,7 @@ export default function Calendar(props) {
                         </AlertDialogHeader>
 
                         <AlertDialogBody>
-                            {deleteDate} 에 찍은 스탬프를 삭제하시겠습니까?
+                            {deleteDate} 의 성경 읽기 기록을 삭제하시겠습니까?
                         </AlertDialogBody>
 
                         <AlertDialogFooter>

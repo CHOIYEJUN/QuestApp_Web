@@ -122,16 +122,9 @@ export default function MyState () {
                         fontWeght={'bold'}
                         m={'5px 0 0 0'}
                     >
-                        총 <span style={{color:"green"}}>{excellentCount}</span> 개의  <span style={{background:"#E5F4D4"}}>"참 잘했어요"</span>
+                        총 <span style={{color:"green"}}>{excellentCount}</span> 일 동안 성경을 읽으셨어요!
                     </Text>
-                    <Text
-                        fontSize={'l'}
-                        fontWeght={'bold'}
-                        m={'5px 0 0 0'}
-                    >
-                        총 <span style={{color:"#faa47a"}}>{goodCount}</span> 개의
-                         <span style={{background:"#FFEAE0"}}>"잘했어요"</span> 를 획득했습니다.
-                    </Text>
+                
                 </center>
                 <HStack
                     m={'10px 0'}
@@ -156,27 +149,31 @@ export default function MyState () {
 
                 </HStack>
                 <HStack
-                    display={'flex'}
-                    justifyContent={'space-between'}
-                    m={'5px 0 0 0'}
-                    w={'80%'}
+                    w={'100%'}
+                    maxW={'320px'}
+                    justify={'space-between'}
+                    align={'flex-start'}
+                    mt={4}
+                    spacing={0}
                 >
-                    <MyPageButton/>
-                    <SteampButton/>
-                    <StateButton/>
-                    <EventButton/>
-                </HStack>
-
-                <HStack
-                    display={'flex'}
-                    justifyContent={'space-between'}
-                    m={'5px 0 0 0'}
-                    w={'80%'}
-                >
-                    <Text fontSize={'small'}>로그아웃</Text>
-                    <Text fontSize={'small'}>기록하기</Text>
-                    <Text fontSize={'small'}>통계 페이지</Text>
-                    <Text fontSize={'small'}>성경 읽기표</Text>
+                    <VStack flex={1} spacing={1} align={'center'}>
+                        <Box w={'50px'} h={'50px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                            <MyPageButton />
+                        </Box>
+                        <Text fontSize={'xs'} textAlign={'center'}>로그아웃</Text>
+                    </VStack>
+                    <VStack flex={1} spacing={1} align={'center'}>
+                        <Box w={'50px'} h={'50px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                            <SteampButton />
+                        </Box>
+                        <Text fontSize={'xs'} textAlign={'center'}>기록하기</Text>
+                    </VStack>
+                    <VStack flex={1} spacing={1} align={'center'}>
+                        <Box w={'50px'} h={'50px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                            <EventButton />
+                        </Box>
+                        <Text fontSize={'xs'} textAlign={'center'}>성경 읽기표</Text>
+                    </VStack>
                 </HStack>
 
             </VStack>

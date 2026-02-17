@@ -6760,6 +6760,19 @@ export const bibleDate = {
       "chapter": "22"
     }
   ]
+};
 
+// 새 방식: 책별 장 목록 (검색/선택 UI용)
+const _allEntries = Object.values(bibleDate).flat();
+const _bookOrder = Array.from(new Set(_allEntries.map((e) => e.book)));
+const _bookChapters: Record<string, string[]> = {};
+_allEntries.forEach(({ book, chapter }) => {
+  if (!_bookChapters[book]) _bookChapters[book] = [];
+  if (!_bookChapters[book].includes(chapter)) _bookChapters[book].push(chapter);
+});
+Object.keys(_bookChapters).forEach((book) => {
+  _bookChapters[book].sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+});
 
-  }
+export const bibleBookNames: string[] = _bookOrder;
+export const bibleBooks: Record<string, string[]> = _bookChapters;

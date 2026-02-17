@@ -1,12 +1,10 @@
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, RouterProvider, Navigate} from "react-router-dom";
 import CreateAccount from "./routes/create-account";
 import Login from "./routes/login";
 import Home from "./routes/Home";
-import TodayDone from "./routes/TodayDone";
 import NotYet from "./routes/NotYet";
 import MyState from "./routes/MyState";
 import PrivateRoute from "./components/PrivateRoute";
-import CheckOtherDay from "./routes/CheckOtherDay";
 import OtherDayDone from "./routes/OtherDayDone";
 import Statistics from "./routes/Statistics";
 import Admin from "./routes/Admin";
@@ -22,7 +20,7 @@ function App() {
         },
         {
             path: "/todayDoen",
-            element: <PrivateRoute element={<TodayDone />} />,
+            element: <Navigate to="/bibleTracker" replace />,
         },
         {
             path: "/notyet",
@@ -34,7 +32,7 @@ function App() {
         },
         {
             path: "/checkOtherDay",
-            element: <PrivateRoute element={<CheckOtherDay />} />,
+            element: <Navigate to="/bibleTracker" replace />,
         },
         {
             path: "/otherDayDone",
@@ -46,8 +44,7 @@ function App() {
         },
         {
             path: "/bibleTracker",
-            element : <BibleTracker/>
-
+            element: <PrivateRoute element={<BibleTracker />} />,
         },
         {
             path: "/create-account",

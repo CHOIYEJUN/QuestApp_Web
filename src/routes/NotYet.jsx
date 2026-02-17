@@ -77,14 +77,6 @@ export default function NotYet() {
                     >
                         전체 현황 볼래요
                     </Button>
-                    <Button
-                        w={'100%'}
-                        margin={'10px 0 10px 0'}
-                        name={"outher"}
-                        onClick={onClick}
-                    >
-                        오늘이 아닌 다른 날 것을 했어요 😁
-                    </Button>
                 </Wrapper>
             </Center>
         </>
